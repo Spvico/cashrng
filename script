@@ -1,0 +1,49 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+    Name = "Cash RNG",
+    LoadingTitle = "By Spvico",
+    LoadingSubtitle = "Loading...",
+    ConfigurationSaving = {
+       Enabled = false
+    },
+    Discord = {
+       Enabled = false
+    },
+    KeySystem = false
+})
+
+local Tab = Window:CreateTab("Main")
+
+local MoneyAmount = 0
+local ExpAmount = 0
+
+local MoneyInput = Tab:CreateInput({
+    Name = "Money Amount",
+    PlaceholderText = "Enter amount",
+    RemoveTextAfterFocusLost = false,
+    Callback = function(Value)
+        MoneyAmount = tonumber(Value)
+    end,
+})
+
+local ExpInput = Tab:CreateInput({
+    Name = "Exp Amount",
+    PlaceholderText = "Enter amount",
+    RemoveTextAfterFocusLost = false,
+    Callback = function(Value)
+        ExpAmount = tonumber(Value)
+    end,
+})
+
+local Button = Tab:CreateButton({
+    Name = "Give Money and Exp",
+    Callback = function()
+        local args = {
+            MoneyAmount,
+            ExpAmount
+        }
+        
+        game:GetService("ReplicatedStorage"):WaitForChild("RollEvent"):FireServer(unpack(args))
+    end,
+})
